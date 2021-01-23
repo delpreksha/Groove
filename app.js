@@ -62,8 +62,8 @@
             loadSong = (songs) => {
                 title.textContent = songs.title;
                 artist.textContent = songs.artist;
-                music.src = "tracks/" + songs.name + ".mp3";
-                img.src = "images/" + songs.name + ".jpg";
+                music.src = songs.name + ".mp3";
+                img.src = songs.name + ".jpg";
             }
 
             songIndex = 0;
