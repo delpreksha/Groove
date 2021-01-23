@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groove</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
+</head>
+<link rel="stylesheet" href="mstyle.css">
+<body>
+    <div class="main">
+        <div class="music_container">
+            <h2 id="title">Memories</h2>
+            <h3 id="artist">Maroon5</h3>
+            <div class="img_container">
+                <img id="img" src="images/memories.jpg" alt="namo namo">
+            </div>
+            <audio id="my_audio" src="tracks/memories.mp3" ></audio>
+            
+            <!--controls-->
+            
+            <div class="music_controls">
+                <i class="fas fa-backward" id="prev" ></i>
+                <i class="fas fa-play" id="play" ></i>
+                <i class="fas fa-forward" id="next" ></i>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       
+            music = document.getElementById("my_audio");
+            img = document.getElementById("img");
+            play = document.getElementById("play");
+            prev = document.getElementById("prev");
+            next = document.getElementById("next");
+            artist = document.getElementById("artist");
+            title = document.getElementById("title");
+
+            const songs = [
+                {
+                    name: "memories",
+                    title: "Memories",
+                    artist: "Maroon5",
+                },
+                {
+                    name: "wakeupSid",
+                    title: "Wake up Sid!",
+                    artist: "Shankar Mahadevan",
+                },
+                {
+                    name: "LejaTu_Faltu",
+                    title: "Leja Tu Mujhe",
+                    artist: "Atif Aslam",
+                },
+                {
+                    name: "ilahi",
+                    title: "Ilahi",
+                    artist: "Arijit Singh",
+                },
+
+                {
+                    name: "haiJunoon_NY",
+                    title: "Hai Junoon",
+                    artist: "KK",
+                },
+            ]
+
+            isplaying = false;
+
+            //play
+            playMusic = () => {
+                music.play();
+                isplaying = true;
+                play.classList.replace("fa-play", "fa-pause");
+            };
+
+            //pause
+            pauseMusic = () => {
+                isplaying = false;
+                music.pause();
+                play.classList.replace("fa-pause", "fa-play");
+            };
+
+            play.addEventListener('click', () => {
+                if (isplaying == true)
+                    pauseMusic();
+                else
+                    playMusic();
+            })
+
+            //song change
+            loadSong = (songs) => {
+                title.textContent = songs.title;
+                artist.textContent = songs.artist;
+                music.src = "tracks/" + songs.name + ".mp3";
+                img.src = "images/" + songs.name + ".jpg";
+            }
+
+            songIndex = 0;
+            const nextSong = () => {
+                songIndex = (songIndex + 1) % songs.length;
+                loadSong(songs[songIndex]);
+                playMusic();
+            }
+
+            const prevSong = () => {
+                songIndex = (songIndex - 1 + songs.length) % songs.length;
+                loadSong(songs[songIndex]);
+                playMusic();
+            }
+
+            next.addEventListener('click', nextSong);
+            prev.addEventListener('click', prevSong);
+
+    </script>
+</body>
+</html>
